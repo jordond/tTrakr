@@ -1,0 +1,24 @@
+{
+  "name": "ttrakr-server",
+  "version": "0.1.0",
+  "description": "Tool for adding and updating data to the firebase database",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jordon de Hoog",
+  "license": "MIT",
+  "dependencies": {
+    "firebase": "^4.8.0",
+    "node-fetch": "^1.7.3",
+    "whatwg-fetch": "^2.0.3",
+    "yargs": "^10.0.3"
+  },
+  "quokka": {
+    "babel": true
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.0",
+    "babel-preset-env": "^1.6.1"
+  }
+}

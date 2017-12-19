@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "710131356777",
+    "firebase_url": "https://ttrakr-0.firebaseio.com",
+    "project_id": "ttrakr-0",
+    "storage_bucket": "ttrakr-0.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:710131356777:android:c269dd6f4d5c92c8",
+        "android_client_info": {
+          "package_name": "ca.hoogit.ttrakr"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "710131356777-ptcnoh9rf28b88fd1mu2t1j0urhuvg7a.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ca.hoogit.ttrakr",
+            "certificate_hash": "9f60e426e0199fe64a02283ff9c7d7a902e37268"
+          }
+        },
+        {
+          "client_id": "710131356777-nafauq66j5j6bn8vijs0h331b10m3vb4.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCfEWLeOVmY6rVSq3IxiTUXhBdhaKM5t7A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "710131356777-nafauq66j5j6bn8vijs0h331b10m3vb4.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
