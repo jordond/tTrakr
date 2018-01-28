@@ -15,7 +15,7 @@ class SimulationViewModel : ViewModel() {
     var teams: MutableLiveData<List<Team>> = MutableLiveData()
 
     fun getPlayers(handler: (players: Map<String, List<Player>>) -> Unit) {
-        singleFirebase("players", {
+        Database.singleEventNoError("players", {
             val mapData = mutableMapOf<String, List<Player>>()
             it.children.mapNotNull {
                 val players = it.children.mapNotNull { it.getValue(Player::class.java) }
@@ -27,7 +27,7 @@ class SimulationViewModel : ViewModel() {
 
     fun getTeams(): LiveData<List<Team>> {
         if (teams.value == null) {
-            singleFirebase("teams", {
+            Database.singleEventNoError("teams", {
                 if (it.exists()) {
                     val newTeams: List<Team> = it.children.mapNotNull { it.getValue(Team::class.java) }
                     getPlayers { players ->
@@ -43,17 +43,5 @@ class SimulationViewModel : ViewModel() {
         }
 
         return teams
-    }
-
-    private fun singleFirebase(path: String, handler: (snapshot: DataSnapshot) -> Unit) {
-        FirebaseDatabase.getInstance().getReference(path).addListenerForSingleValueEvent(object : ValueEventListener {
-            override fun onDataChange(p0: DataSnapshot) {
-                handler(p0)
-            }
-
-            override fun onCancelled(p0: DatabaseError) {
-                Log.e(TAG, p0.message)
-            }
-        })
     }
 }
