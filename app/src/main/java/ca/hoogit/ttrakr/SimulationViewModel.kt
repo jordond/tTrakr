@@ -12,7 +12,8 @@ import com.google.firebase.database.ValueEventListener
 class SimulationViewModel : ViewModel() {
     val TAG: String = "SimViewModel"
 
-    var teams: MutableLiveData<List<Team>> = MutableLiveData()
+    val teams: MutableLiveData<List<Team>> = MutableLiveData()
+    val settings: MutableLiveData<Simulation> = MutableLiveData()
 
     fun getPlayers(handler: (players: Map<String, List<Player>>) -> Unit) {
         Database.singleEventNoError("players", {
@@ -43,5 +44,23 @@ class SimulationViewModel : ViewModel() {
         }
 
         return teams
+    }
+
+    fun getSettings() : LiveData<Simulation> {
+        if (settings.value == null) {
+            Database.subscribe("simulation", object : ValueEventListener{
+                override fun onCancelled(p0: DatabaseError?) {
+                    Log.e(TAG, "Failed to subscript to Settings -> ${p0?.message}")
+                }
+
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    if (snapshot.exists()) {
+                        settings.postValue(snapshot.getValue(Simulation::class.java))
+                    }
+                }
+            })
+        }
+
+        return settings
     }
 }

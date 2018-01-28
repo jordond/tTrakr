@@ -1,20 +1,21 @@
 package ca.hoogit.ttrakr
 
 import android.util.Log
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.*
 
 object Database {
     val TAG = "Database"
 
+    fun ref(path: String): DatabaseReference {
+        return FirebaseDatabase.getInstance().getReference(path);
+    }
+
     fun singleEvent(path: String, handler: ValueEventListener) {
-        FirebaseDatabase.getInstance().getReference(path).addListenerForSingleValueEvent(handler)
+        ref(path).addListenerForSingleValueEvent(handler)
     }
 
     fun singleEventNoError(path: String, handler: (snapshot: DataSnapshot) -> Unit) {
-        FirebaseDatabase.getInstance().getReference(path).addListenerForSingleValueEvent(object : ValueEventListener {
+        ref(path).addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onDataChange(p0: DataSnapshot) {
                 handler(p0)
             }
@@ -23,5 +24,9 @@ object Database {
                 Log.e(TAG, p0.message)
             }
         })
+    }
+
+    fun subscribe(path: String, handler: ValueEventListener) {
+        ref(path).addValueEventListener(handler)
     }
 }
