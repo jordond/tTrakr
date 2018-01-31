@@ -1,4 +1,4 @@
-package ca.hoogit.ttrakr
+package ca.hoogit.ttrakr.vo
 
 data class Team(
         val abbreviation: String = "",
