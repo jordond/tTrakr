@@ -1,7 +1,6 @@
 package ca.hoogit.ttrakr
 
 import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.NavigationView
@@ -13,13 +12,11 @@ import android.view.Menu
 import android.view.MenuItem
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
-import javax.inject.Inject
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val TAG = MainActivity::class.java.canonicalName
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     lateinit var simViewModel: SimulationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,7 +31,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         nav_view.setNavigationItemSelectedListener(this)
 
-        simViewModel = ViewModelProviders.of(this, viewModelFactory).get(SimulationViewModel::class.java)
+        simViewModel = ViewModelProviders.of(this).get(SimulationViewModel::class.java)
     }
 
     override fun onResume() {
