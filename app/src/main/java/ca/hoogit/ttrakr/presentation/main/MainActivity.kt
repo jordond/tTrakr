@@ -1,4 +1,4 @@
-package ca.hoogit.ttrakr
+package ca.hoogit.ttrakr.presentation.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
@@ -6,18 +6,26 @@ import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v7.app.ActionBarDrawerToggle
-import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import ca.hoogit.ttrakr.R
+import ca.hoogit.ttrakr.di.viewModel.ViewModelFactory
+import ca.hoogit.ttrakr.presentation.BaseActivity
+import dagger.android.DaggerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
+import javax.inject.Inject
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : DaggerActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val TAG = MainActivity::class.java.canonicalName
 
-    lateinit var simViewModel: SimulationViewModel
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+
+    private val mainViewModel: MainViewModel by lazy {
+        ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,17 +38,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         toggle.syncState()
 
         nav_view.setNavigationItemSelectedListener(this)
-
-        simViewModel = ViewModelProviders.of(this).get(SimulationViewModel::class.java)
     }
 
     override fun onResume() {
         super.onResume()
 
-        simViewModel.getTeams().observe(this, Observer { teams ->
+        mainViewModel.getTeams().observe(this, Observer { teams ->
             Log.i(TAG, "Found some stuff...");
             if (teams != null) {
-                teams?.forEach { Log.d(TAG, "Team: ${it.name}") }
+                teams.forEach { Log.d(TAG, "Team: ${it.name}") }
                 Log.d(TAG, "TEAM SIZE: ${teams.size}")
             }
         })

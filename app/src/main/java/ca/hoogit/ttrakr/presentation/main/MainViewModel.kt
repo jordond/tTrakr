@@ -1,4 +1,4 @@
-package ca.hoogit.ttrakr
+package ca.hoogit.ttrakr.presentation.main
 
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
@@ -12,7 +12,7 @@ import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
 
-class SimulationViewModel : ViewModel() {
+class MainViewModel : ViewModel() {
 
     val TAG: String = "SimViewModel"
 
