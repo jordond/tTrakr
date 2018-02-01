@@ -11,8 +11,9 @@ import ca.hoogit.ttrakr.vo.Team
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.ValueEventListener
+import javax.inject.Inject
 
-class MainViewModel : ViewModel() {
+class MainViewModel @Inject constructor(val firebase: FirebaseUtils) : ViewModel() {
 
     val TAG: String = "SimViewModel"
 
@@ -20,7 +21,7 @@ class MainViewModel : ViewModel() {
     val settings: MutableLiveData<Simulation> = MutableLiveData()
 
     fun getPlayers(handler: (players: Map<String, List<Player>>) -> Unit) {
-        FirebaseUtils().singleEventNoOnCancelled("players", {
+        firebase.singleEventNoOnCancelled("players", {
             val mapData = mutableMapOf<String, List<Player>>()
             it.children.mapNotNull {
                 val players = it.children.mapNotNull { it.getValue(Player::class.java) }
@@ -32,7 +33,7 @@ class MainViewModel : ViewModel() {
 
     fun getTeams(): LiveData<List<Team>> {
         if (teams.value == null) {
-            FirebaseUtils().singleEventNoOnCancelled("teams", {
+            firebase.singleEventNoOnCancelled("teams", {
                 if (it.exists()) {
                     val newTeams: List<Team> = it.children.mapNotNull { it.getValue(Team::class.java) }
                     getPlayers { players ->
@@ -52,7 +53,7 @@ class MainViewModel : ViewModel() {
 
     fun getSettings(): LiveData<Simulation> {
         if (settings.value == null) {
-            FirebaseUtils().subscribe("simulation", object : ValueEventListener {
+            firebase.subscribe("simulation", object : ValueEventListener {
                 override fun onCancelled(p0: DatabaseError?) {
                     Log.e(TAG, "Failed to subscript to Settings -> ${p0?.message}")
                 }

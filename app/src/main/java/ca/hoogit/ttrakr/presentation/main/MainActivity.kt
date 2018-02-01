@@ -12,12 +12,11 @@ import android.view.MenuItem
 import ca.hoogit.ttrakr.R
 import ca.hoogit.ttrakr.di.viewModel.ViewModelFactory
 import ca.hoogit.ttrakr.presentation.BaseActivity
-import dagger.android.DaggerActivity
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.app_bar_main.*
 import javax.inject.Inject
 
-class MainActivity : DaggerActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : BaseActivity(), NavigationView.OnNavigationItemSelectedListener {
 
     val TAG = MainActivity::class.java.canonicalName
 

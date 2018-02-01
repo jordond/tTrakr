@@ -1,5 +1,6 @@
 package ca.hoogit.ttrakr.presentation
 
+import android.annotation.SuppressLint
 import android.app.Fragment
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
@@ -10,6 +11,7 @@ import dagger.android.HasFragmentInjector
 import javax.inject.Inject
 
 
+@SuppressLint("Registered")
 open class BaseActivity : AppCompatActivity(), HasFragmentInjector {
 
     @Inject lateinit var dispatchingAndroidInjector: DispatchingAndroidInjector<Fragment>

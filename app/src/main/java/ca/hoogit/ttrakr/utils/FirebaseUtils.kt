@@ -2,14 +2,15 @@ package ca.hoogit.ttrakr.utils
 
 import android.util.Log
 import com.google.firebase.database.*
+import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class FirebaseUtils {
+class FirebaseUtils @Inject constructor(val firebase: FirebaseDatabase) {
     val TAG = "Firebase"
 
     private fun ref(path: String): DatabaseReference {
-        return FirebaseDatabase.getInstance().getReference(path)
+        return firebase.getReference(path)
     }
 
     fun singleEvent(path: String, handler: ValueEventListener) {
